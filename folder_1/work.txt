@@ -1,0 +1,150 @@
+//============================================================================
+// Name        : work.cpp
+// Author      : 蓝天翔
+// Version     :
+// Copyright   : 
+// Description :
+//============================================================================
+
+#include <reg52.h>	//51头文件
+#include <intrins.h>//包含循环右移函数_cror头文件
+
+#define uchar unsigned char	 //宏定义
+#define uint  unsigned int	 //宏定义
+
+sbit beep1 = P1^0; //位定义beep1硬件接口,这里是假定蜂鸣器1接在P1.0引脚，根据实际情况修改。
+sbit beep2 = P1^1; //位定义beep2接在P1.1引脚
+sbit beep3 = P1^2;  // 以下同理
+sbit beep4 = P1^3;
+sbit beep5 = P1^4;
+sbit beep6 = P1^5;
+sbit beep7 = P1^6;
+sbit beep8 = P1^7;
+
+sbit beep9 = P2^0 ; //假定beep9 接在P2.0引脚，根据实际情况修改
+sbit beep10 =P2^1;
+sbit beep11 = P2^2;
+sbit beep12 = P2^3;
+sbit beep13 = P2^4;
+sbit beep14 = P2^5;
+sbit beep15 = P2^6;
+sbit beep16 = P2^7;
+
+
+void delay(uint z)  //毫秒级延时函数
+{
+	uint x,y;
+	for(x = z; x > 0; x--)
+		for(y = 120; y > 0 ; y--);
+}
+//
+void enable_beep(int arr[],int number){  //启动指定蜂鸣器函数,假定低电平启动
+	for(int i =0;i<number;i++){
+		switch(arr[i]){
+		case 1: beep1=0;break;
+		case 2: beep2=0;break;
+		case 3: beep3=0;break;
+		case 4: beep4=0;break;
+		case 5: beep5=0;break;
+		case 6: beep6=0;break;
+		case 7: beep7=0;break;
+		case 8: beep8=0;break;
+		case 9: beep9=0;break;
+		case 10: beep10=0;break;
+		case 11: beep11=0;break;
+		case 12: beep12=0;break;
+		case 13: beep13=0;break;
+		case 14: beep14=0;break;
+		case 15: beep15=0;break;
+		case 16: beep16=0;break;
+		default: break;
+		}
+	}
+
+}
+void disable_beep(int arr[],int number){//关闭指定蜂鸣器函数，假定高电平关断
+	for(int i =0;i<number;i++){
+			switch(arr[i]){
+			case 1: beep1=1;break;
+			case 2: beep2=1;break;
+			case 3: beep3=1;break;
+			case 4: beep4=1;break;
+			case 5: beep5=1;break;
+			case 6: beep6=1;break;
+			case 7: beep7=1;break;
+			case 8: beep8=1;break;
+			case 9: beep9=1;break;
+			case 10: beep10=1;break;
+			case 11: beep11=1;break;
+			case 12: beep12=1;break;
+			case 13: beep13=1;break;
+			case 14: beep14=1;break;
+			case 15: beep15=1;break;
+			case 16: beep16=1;break;
+			default: break;
+			}
+		}
+
+}
+
+void disable_all_beeps(){// 关断所有蜂鸣器
+			beep1=1;//也许可以写成这样 不确定是否work
+			beep2=1;//for(int i=0;i<8;i++) {P1^i=1;P2^i=1;}
+			beep3=1;//
+			beep4=1;//
+			beep5=1;//
+			beep6=1;
+			beep7=1;
+			beep8=1;
+			beep9=1;
+			beep10=1;
+			beep11=1;
+			beep12=1;
+			beep13=1;
+			beep14=1;
+			beep15=1;
+			beep16=1;
+}
+void beep(int arr[],int number){
+	
+	for(int i =0;i<number;i++){//也许可以这样写 不确定是否work
+			switch(arr[i]){//for(int i=0;i<number;i++){
+			case 1: beep1=0;break;//if(arr[i]<=7)
+			case 2: beep2=0;break;//P1^(arr[i])=0;
+			case 3: beep3=0;break;//else:
+			case 4: beep4=0;break;//P2^(arr[i]-8)=0;}
+			case 5: beep5=0;break;
+			case 6: beep6=0;break;
+			case 7: beep7=0;break;
+			case 8: beep8=0;break;
+			case 9: beep9=0;break;
+			case 10: beep10=0;break;
+			case 11: beep11=0;break;
+			case 12: beep12=0;break;
+			case 13: beep13=0;break;
+			case 14: beep14=0;break;
+			case 15: beep15=0;break;
+			case 16: beep16=0;break;
+			default: break;
+			}
+		}
+	delay(200);//延迟200ms后自动关闭
+	disable_all_beeps();
+	
+	
+}
+//主函数
+void main()
+{
+	disable_all_beeps();
+	delay(3000);
+	int a[3]={9,10,16};
+	beep(a,3);
+	delay(300);
+	int a[4]={4,9,10,16};
+	beep(a,4);
+	//...
+	
+	
+	
+}
